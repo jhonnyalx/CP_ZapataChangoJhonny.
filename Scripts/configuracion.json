@@ -1,0 +1,97 @@
+[{
+        "aplicativo": "watsonNlu",
+        "config": {
+            "modelo": "20:687903ca-d1e6-47d7-8814-0fd4e17d48b2",
+            "script": "C:/Users/GENERA/Desktop/tesis/InsumosDesarrollo/DesarrolloRpa/Scripts/devTransformacionExecutable.py"
+        }
+    },
+    {
+        "aplicativo": "ftp",
+        "config": {
+            "path": "C:/Users/GENERA/Desktop/tesis/InsumosDesarrollo/DesarrolloRpa/RecepcionArchivos/Iniciales",
+            "area": "Tecnologia"
+        }
+    },
+    {
+        "aplicativo": "outlook",
+        "config": {
+            "carpeta": "CURRICULUMNS_TECNLOGIA",
+            "busqueda": "Aplicación vacante tecnología"
+        }
+    },
+    {
+        "aplicativo": "botLogicaNegocio",
+        "config": {
+            "reintentos": "3",
+            "bot": [{
+                    "id": "Senescyt001",
+                    "fuente": "https://www.senescyt.gob.ec/web/guest/consultas",
+                    "directorioImagenCaptcha": "C:/Users/GENERA/Desktop/tesis/InsumosDesarrollo/DesarrolloRpa/Imagenes/ImgCaptcha.png",
+                    "keyCaptcha": "712d03cf7838227bb7a116182652e396",
+                    "pasos": [{
+                            "descripcion": "Textbox identificación",
+                            "tipoParametro": "Id",
+                            "status": "Success",
+                            "secuencia": "1",
+                            "xpath": "formPrincipal:identificacion"
+                        },
+                        {
+                            "descripcion": "Imagen captcha",
+                            "tipoParametro": "Id",
+                            "status": "Success",
+                            "secuencia": "2",
+                            "xpath": "formPrincipal:capimg"
+                        },
+                        {
+                            "descripcion": "Textbox captcha",
+                            "tipoParametro": "Id",
+                            "status": "Success",
+                            "secuencia": "3",
+                            "xpath": "formPrincipal:captchaSellerInput"
+                        },
+                        {
+                            "descripcion": "Boton de busqueda",
+                            "tipoParametro": "Id",
+                            "status": "Success",
+                            "secuencia": "4",
+                            "xpath": "formPrincipal:boton-buscar"
+                        },
+                        {
+                            "descripcion": "Tabla de resultado tercer nivel y/o cuarto nivel",
+                            "tipoParametro": "Class",
+                            "status": "Success",
+                            "secuencia": "5",
+                            "xpath": "ui-datatable-tablewrapper"
+                        }
+                    ]
+                },
+                {
+                    "id": "AntecedentesPenales001",
+                    "Content-Type": "text/html",
+                    "tipo": "getDataWs",
+                    "tp": "C",
+                    "ise": "SI",
+                    "url": "http://certificados.ministeriodegobierno.gob.ec/gestorcertificados/antecedentes/data.php"
+                },
+                {
+                    "id": "Nepotismo001",
+                    "query": "select  PXE_ID,PXE_DNI,PXE_NOMBRE,PXE_APELLIDO, PXE_DIRECCION,EMP_NOMBRE,EMP_APELLIDO,EMP_DNI,EMP_FECHA_NACIMIENTO,EMP_SEXO,EMP_ESTADO,PAR_DESCRIPCION,PAR_GRADO from TBL_PARENTESCO_EMPLEADO PE INNER JOIN TBL_EMPLEADOS E ON E.EMP_ID=PE.EMP_ID INNER JOIN TBL_PARENTESCO P ON P.PAR_ID=PE.PAR_ID WHERE PXE_DNI='***'",
+                    "script": "C:/Users/GENERA/Desktop/tesis/InsumosDesarrollo/DesarrolloRpa/Scripts/devConsultaBaseDatosExecutable.py",
+                    "key": "credencialBaseDatosNepotismo"
+                },
+                {
+                    "id": "Pep001",
+                    "query": "select P.PEP_DNI,P.PEP_FECHA_INICIO, P.PEP_FECHA_FIN, I.INST_DESCRIPCION,I.INST_ID, (SELECT DATEDIFF(MONTH, P.PEP_FECHA_INICIO, P.PEP_FECHA_FIN)) AS MESES from TBL_PERSONAS_PEP P INNER JOIN TBL_INSTITUCION I ON I.INST_ID=P.INST_ID WHERE P.PEP_DNI='***'",
+                    "script": "C:/Users/GENERA/Desktop/tesis/InsumosDesarrollo/DesarrolloRpa/Scripts/devConsultaBaseDatosExecutable.py",
+                    "key": "credencialBaseDatosPep"
+                },
+                {
+                    "id": "Insert001",
+                    "query": "select P.PEP_DNI,P.PEP_FECHA_INICIO, P.PEP_FECHA_FIN, I.INST_DESCRIPCION,I.INST_ID, (SELECT DATEDIFF(MONTH, P.PEP_FECHA_INICIO, P.PEP_FECHA_FIN)) AS MESES from TBL_PERSONAS_PEP P INNER JOIN TBL_INSTITUCION I ON I.INST_ID=P.INST_ID WHERE P.PEP_DNI='***'",
+                    "script": "C:/Users/GENERA/Desktop/tesis/InsumosDesarrollo/DesarrolloRpa/Scripts/devInsertarBaseDatosExecutable.py",
+                    "key": "credencialBaseDatos"
+                }
+            ]
+        }
+    }
+]
